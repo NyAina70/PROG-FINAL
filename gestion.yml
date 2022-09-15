@@ -1,0 +1,338 @@
+openapi: '3.0.2'
+info:
+  title: SDT21070
+  version: '1.0'
+  description: 'API gestion des ventes' 
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: hei.Nyaina.70@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+tags:
+- name: "Client"
+- name: "Article"
+
+paths:
+     
+  /Client:
+    get:
+      tags:
+        - Client
+      summary: Get a list of Client
+      operationId: getClient
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int64
+          required: true    
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+          required: true
+      responses:
+        200:
+          description: List Client
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "400_BAD_REQUEST"
+                  message:
+                    type: string
+                    example: "Parameter missing"
+    post:
+      tags:
+        - Client
+      summary: Create new Client
+      requestBody:
+        description: Client
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:   
+                 $ref: '#/components/schemas/Newclient'
+      responses:
+        200:
+          description: client
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content: {}
+    
+
+  /Client/{id_client}:
+    get:
+      tags:
+        - Client
+      summary: Get a client by ID
+      operationId: getClientID
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true  
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: not found
+          content: {}  
+     
+    delete:
+      tags:
+        - Client
+      summary: delete a client
+      operationId: getClientID
+      parameters:
+        - name: id_client
+          in: path
+          schema:
+            type: integer
+          required: true  
+        
+      requestBody:
+        description: Client request
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Newclient'   
+      responses:
+        200:
+          description: deleted successfully
+        400:
+          description: invalid ID
+          content: {}
+        404:
+          description: not found
+          content: {} 
+    patch:
+      tags:
+        - Client
+      summary: do a patch
+      operationId: getClientID
+      parameters:
+        - name: id_client
+          in: path
+          schema:
+            type: integer
+          required: true  
+      requestBody:
+        description: Client
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Newclient'   
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content: {}     
+        404:
+           description: not found
+           content: {}
+  /Article:
+    get:
+      tags:
+        - Article
+      summary: Get a list of Article
+      operationId: getAppart
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int64
+          required: true    
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+          required: true
+      responses:
+        200:
+          description: List Article
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "400_BAD_REQUEST"
+                  message:
+                    type: string
+                    example: "Parameter missing"
+    post:
+      tags:
+        - Article
+      summary: Create new Article
+      requestBody:
+        description: Article
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:   
+                 $ref: '#/components/schemas/NewArticle'
+      responses:
+        200:
+          description: apartment
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+        400:
+          description: Bad Request
+          content: {}
+ 
+  /Article/{id_appart}:
+    get:
+      tags:
+        - Article
+      summary: Get an Article by his ID
+      operationId: getArticleID
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true  
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: not found
+          content: {}    
+    delete:
+      tags:
+        - Article
+      summary: delete an Article
+      operationId: getAppartID
+      parameters:
+        - name: id_appart
+          in: path
+          schema:
+            type: integer
+          required: true  
+        
+      requestBody:
+        description: Delete 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewArticle'   
+      responses:
+        200:
+          description: deleted successfully
+        400:
+          description: invalid ID
+          content: {}
+        404:
+          description: not found
+          content: {} 
+
+components:
+  schemas:
+
+
+
+
+    client:
+      type: object
+      properties:
+        id_client:
+          type: string
+        adresse_client:
+          type: string
+        tel_client:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/Newclient'
+      
+ 
+    Newclient:
+      type: object
+      properties:
+        nom_client:
+          type: string
+        prenom_client :
+          type: string
+
+    NewArticle:
+      type: object
+      properties:
+        prix_article:
+          type: string
+        code_barre :
+          type: string      
+
+    Article:
+      type: object
+      properties:
+        id_article:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/NewArticle'
